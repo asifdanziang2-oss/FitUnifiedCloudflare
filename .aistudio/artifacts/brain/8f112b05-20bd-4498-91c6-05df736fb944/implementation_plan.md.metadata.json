@@ -1,0 +1,6 @@
+{
+  "summary":  "Implementation plan to fix inconsistent vertical spacing between the heading and paragraph inside the Core Values cards by replacing space-between vertical distribution with a top-aligned vertical stack across all three cards.",
+  "updatedAt":  "2026-10-31T21:59:58.925920521Z",
+  "requestFeedback":  true,
+  "userFacing":  true
+}

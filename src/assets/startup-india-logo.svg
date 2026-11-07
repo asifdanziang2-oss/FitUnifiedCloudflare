@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 90" fill="none">
+  <!-- Ashoka Pillar simplified emblem -->
+  <g transform="translate(10, 8)">
+    <!-- Abacus top -->
+    <rect x="16" y="0" width="38" height="6" rx="2" fill="#1a1a1a"/>
+    <!-- Capital with lions (simplified block) -->
+    <rect x="20" y="6" width="30" height="10" rx="1.5" fill="#2a2a2a"/>
+    <!-- Wheel of Dharma (Ashoka Chakra) -->
+    <circle cx="35" cy="24" r="9" fill="none" stroke="#1a1a1a" stroke-width="2"/>
+    <circle cx="35" cy="24" r="2" fill="#1a1a1a"/>
+    <!-- Spokes -->
+    <line x1="35" y1="15" x2="35" y2="33" stroke="#1a1a1a" stroke-width="1.2"/>
+    <line x1="26" y1="24" x2="44" y2="24" stroke="#1a1a1a" stroke-width="1.2"/>
+    <line x1="28.5" y1="17.5" x2="41.5" y2="30.5" stroke="#1a1a1a" stroke-width="1.2"/>
+    <line x1="41.5" y1="17.5" x2="28.5" y2="30.5" stroke="#1a1a1a" stroke-width="1.2"/>
+    <!-- Pillar shaft -->
+    <rect x="31" y="33" width="8" height="26" rx="1" fill="#1a1a1a"/>
+    <!-- Base -->
+    <rect x="22" y="59" width="26" height="5" rx="2" fill="#1a1a1a"/>
+    <rect x="18" y="64" width="34" height="4" rx="2" fill="#1a1a1a"/>
+    <!-- SATYAMEVA text -->
+    <text x="35" y="76" text-anchor="middle" font-family="serif" font-size="5.5" fill="#1a1a1a" letter-spacing="0.5">सत्यमेव जयते</text>
+  </g>
+
+  <!-- DPIIT text -->
+  <text x="72" y="38" font-family="Arial Black, Arial, sans-serif" font-size="28" font-weight="900" fill="#1a1a1a" letter-spacing="1">DPIIT</text>
+
+  <!-- #startupindia text -->
+  <text x="72" y="62" font-family="Arial, sans-serif" font-size="18" font-weight="700" fill="#FF6B00" letter-spacing="0">#startup</text>
+  <text x="187" y="62" font-family="Arial, sans-serif" font-size="18" font-weight="700" fill="#138808" letter-spacing="0">india</text>
+
+  <!-- Startup India staircase icon (simplified) -->
+  <g transform="translate(295, 42)">
+    <rect x="0" y="12" width="8" height="4" fill="#FF6B00"/>
+    <rect x="0" y="7" width="8" height="4" fill="#138808"/>
+    <rect x="0" y="2" width="8" height="4" fill="#138808"/>
+    <rect x="8" y="12" width="8" height="4" fill="#FF6B00"/>
+    <rect x="8" y="7" width="8" height="4" fill="#138808"/>
+  </g>
+</svg>

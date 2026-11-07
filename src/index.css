@@ -1,0 +1,279 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&family=Noto+Sans:wght@400;500;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 0 0% 100%;
+    --foreground: 220 20% 15%;
+
+    --card: 0 0% 100%;
+    --card-foreground: 220 20% 15%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 220 20% 15%;
+
+    --primary: 340 82% 55%;
+    --primary-foreground: 0 0% 100%;
+
+    --secondary: 30 95% 55%;
+    --secondary-foreground: 0 0% 100%;
+
+    --muted: 30 30% 96%;
+    --muted-foreground: 220 10% 45%;
+
+    --accent: 45 100% 55%;
+    --accent-foreground: 220 20% 15%;
+
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 220 15% 90%;
+    --input: 220 15% 90%;
+    --ring: 340 82% 55%;
+
+    --radius: 1rem;
+
+    --gradient-primary: linear-gradient(135deg, hsl(340, 82%, 55%), hsl(25, 95%, 55%), hsl(45, 100%, 55%));
+    --gradient-primary-hover: linear-gradient(135deg, hsl(340, 82%, 48%), hsl(25, 95%, 48%), hsl(45, 100%, 48%));
+    --gradient-soft: linear-gradient(135deg, hsl(340, 82%, 55%, 0.08), hsl(25, 95%, 55%, 0.08), hsl(45, 100%, 55%, 0.08));
+    --shadow-brand: 0 8px 30px -8px hsl(340, 82%, 55%, 0.3);
+    --shadow-card: 0 4px 20px -4px hsl(220, 20%, 15%, 0.08);
+    --shadow-card-hover: 0 12px 32px -8px hsl(340, 82%, 55%, 0.14), 0 4px 16px -4px hsl(220, 20%, 15%, 0.06);
+
+    --sidebar-background: 0 0% 98%;
+    --sidebar-foreground: 240 5.3% 26.1%;
+    --sidebar-primary: 240 5.9% 10%;
+    --sidebar-primary-foreground: 0 0% 98%;
+    --sidebar-accent: 240 4.8% 95.9%;
+    --sidebar-accent-foreground: 240 5.9% 10%;
+    --sidebar-border: 220 13% 91%;
+    --sidebar-ring: 340 82% 55%;
+
+    /* Consistent Page Spacing & Rhythm Tokens */
+    --section-py-mobile: 2.25rem;   /* 36px */
+    --section-py-tablet: 2.75rem;   /* 44px */
+    --section-py-desktop: 3.75rem;  /* 60px */
+    --heading-to-sub: 0.75rem;      /* 12px */
+    --sub-to-content: 1.75rem;      /* 28px */
+    --grid-gap: 1.125rem;           /* 18px */
+    --card-pad: 1.125rem;           /* 18px */
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 4rem;
+  }
+
+  body {
+    @apply bg-background text-foreground font-body antialiased overflow-x-hidden selection:bg-primary/15 selection:text-primary;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    @apply font-display;
+    text-wrap: balance;
+  }
+}
+
+@layer utilities {
+  .gradient-text {
+    background: var(--gradient-primary);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .gradient-bg {
+    background: var(--gradient-primary);
+  }
+
+  .gradient-bg-hover {
+    background: var(--gradient-primary-hover);
+  }
+
+  .gradient-soft-bg {
+    background: var(--gradient-soft);
+  }
+
+  .shadow-brand {
+    box-shadow: var(--shadow-brand);
+  }
+
+  .shadow-card {
+    box-shadow: var(--shadow-card);
+  }
+
+  .shadow-card-hover {
+    box-shadow: var(--shadow-card-hover);
+  }
+
+  .bg-grid-pattern {
+    background-size: 32px 32px;
+    background-image: 
+      linear-gradient(to right, hsl(340, 82%, 55%, 0.04) 1px, transparent 1px),
+      linear-gradient(to bottom, hsl(25, 95%, 55%, 0.04) 1px, transparent 1px);
+  }
+
+  /* Page Container & Section Scroll Margin Rules */
+  .snap-page-container > section,
+  .snap-page-container > footer {
+    scroll-margin-top: 4rem;
+  }
+
+  /* Standardized Section Shell (36px mobile / 44px tablet / 60px desktop) */
+  .section-shell {
+    padding-top: var(--section-py-mobile);
+    padding-bottom: var(--section-py-mobile);
+    scroll-margin-top: 4rem;
+  }
+
+  @media (min-width: 768px) {
+    .section-shell {
+      padding-top: var(--section-py-tablet);
+      padding-bottom: var(--section-py-tablet);
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .section-shell {
+      padding-top: var(--section-py-desktop);
+      padding-bottom: var(--section-py-desktop);
+    }
+  }
+
+  /* Standardized 1180px Content Container with Consistent Horizontal Gutters */
+  .section-container {
+    width: 100%;
+    max-width: 1180px;
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: 1.25rem;
+    padding-right: 1.25rem;
+  }
+
+  @media (min-width: 640px) {
+    .section-container {
+      padding-left: 1.5rem;
+      padding-right: 1.5rem;
+    }
+  }
+
+  /* Standardized Section Header & Typography Scale */
+  .section-header {
+    margin-bottom: 1.5rem;
+  }
+
+  @media (min-width: 768px) {
+    .section-header {
+      margin-bottom: var(--sub-to-content);
+    }
+  }
+
+  .section-title {
+    font-size: clamp(1.65rem, 2.5vw, 2.25rem);
+    line-height: 1.2;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    color: hsl(var(--foreground));
+  }
+
+  .section-subtitle {
+    margin-top: var(--heading-to-sub);
+    font-size: clamp(0.9375rem, 1.05vw, 1rem);
+    line-height: 1.55;
+    color: hsl(var(--muted-foreground));
+  }
+
+  .card-title {
+    font-size: clamp(1.0625rem, 1.2vw, 1.2rem);
+    line-height: 1.28;
+    font-weight: 700;
+    color: hsl(var(--foreground));
+  }
+
+  .card-body {
+    font-size: 0.875rem;
+    line-height: 1.52;
+    color: hsl(var(--muted-foreground));
+  }
+
+  /* ProblemSection Cropped Visual Utilities */
+  .problem-visual-1 {
+    background-image: url('/assets/aistudio/Modern_Gym_Management_Challenges_f5578cf4.png');
+    background-size: 380.2% 171.5%;
+    background-position: 3.87% 81.77%;
+  }
+
+  .problem-callout-1 {
+    background-image: url('/assets/aistudio/Modern_Gym_Management_Challenges_f5578cf4.png');
+    background-size: 625% 740.7%;
+    background-position: 35.95% 89.02%;
+  }
+
+  .problem-visual-2 {
+    background-image: url('/assets/aistudio/Modern_Gym_Management_Challenges_f5578cf4.png');
+    background-size: 1052.6% 340.1%;
+    background-position: 68.73% 49.29%;
+  }
+
+  .problem-visual-3 {
+    background-image: url('/assets/aistudio/Modern_Gym_Management_Challenges_f5578cf4.png');
+    background-size: 990.1% 326.8%;
+    background-position: 97.11% 48.41%;
+  }
+
+  .problem-visual-4 {
+    background-image: url('/assets/aistudio/Modern_Gym_Management_Challenges_f5578cf4.png');
+    background-size: 632.9% 444.4%;
+    background-position: 96.20% 90.32%;
+  }
+
+  /* SolutionSection 6-Card Cropped Visual Utilities */
+  .solution-card-visual-1,
+  .solution-card-visual-2,
+  .solution-card-visual-3,
+  .solution-card-visual-4,
+  .solution-card-visual-5,
+  .solution-card-visual-6 {
+    background-image: url('/assets/aistudio/Everything_Your_Gym_Needs_in_One_App_16bd1ddc.png');
+    background-size: 726.96% 379.44%;
+    background-repeat: no-repeat;
+  }
+
+  .solution-card-visual-1 {
+    background-position: 22.88% 46.18%;
+  }
+
+  .solution-card-visual-2 {
+    background-position: 60.19% 46.18%;
+  }
+
+  .solution-card-visual-3 {
+    background-position: 97.36% 46.18%;
+  }
+
+  .solution-card-visual-4 {
+    background-position: 23.02% 91.92%;
+  }
+
+  .solution-card-visual-5 {
+    background-position: 60.61% 91.92%;
+  }
+
+  .solution-card-visual-6 {
+    background-position: 97.36% 91.92%;
+  }
+}
