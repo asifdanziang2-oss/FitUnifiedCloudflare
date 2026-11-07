@@ -1,6 +1,8 @@
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
+import { toast } from "sonner";
+import { submitDemoBooking } from "@/lib/sanity";
 import {
   Dialog,
   DialogContent,
@@ -41,7 +43,14 @@ const BookDemoModal = ({ open, onOpenChange }: BookDemoModalProps) => {
     mode: "onTouched",
   });
 
-  const onSubmit = (data: FormValues) => {
+  const onSubmit = async (data: FormValues) => {
+    try {
+      await submitDemoBooking(data);
+      toast.success("Demo request recorded! Connecting to WhatsApp...");
+    } catch (err) {
+      console.error("Failed to record demo booking:", err);
+    }
+
     const text = encodeURIComponent(
       `Hi, I'd like to book a demo.\n\nName: ${data.name}\nPhone: ${data.phone}\nGym: ${data.gymName}\nCity: ${data.city}\nMessage: ${data.message}`
     );
@@ -93,8 +102,14 @@ const BookDemoModal = ({ open, onOpenChange }: BookDemoModalProps) => {
                 <FormMessage />
               </FormItem>
             )} />
-            <Button type="submit" variant="gradient" size="lg" className="w-full rounded-full text-base">
-              Send Message
+            <Button
+              type="submit"
+              variant="gradient"
+              size="lg"
+              className="w-full rounded-full text-base"
+              disabled={form.formState.isSubmitting}
+            >
+              {form.formState.isSubmitting ? "Saving..." : "Send Message"}
             </Button>
           </form>
         </Form>

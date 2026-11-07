@@ -20,6 +20,7 @@ import {
   CONTACT_INFO_ITEMS,
   buildWhatsAppContactUrl,
 } from "@/lib/contactData";
+import { submitContactForm } from "@/lib/sanity";
 
 /* Solid white icons for the left contact info cards */
 const SolidPhoneIcon = ({ className = "w-5 h-5" }: { className?: string }) => (
@@ -136,6 +137,7 @@ const PaperPlaneIcon = ({ className = "w-5 h-5" }: { className?: string }) => (
 
 const Contact = () => {
   const [submittedData, setSubmittedData] = useState<ContactValues | null>(null);
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const form = useForm<ContactValues>({
     resolver: zodResolver(contactSchema),
@@ -143,9 +145,17 @@ const Contact = () => {
     mode: "onTouched",
   });
 
-  const onSubmit = (data: ContactValues) => {
-    setSubmittedData(data);
-    form.reset();
+  const onSubmit = async (data: ContactValues) => {
+    setIsSubmitting(true);
+    try {
+      await submitContactForm(data);
+    } catch (err) {
+      console.error("Failed to submit contact form to Sanity:", err);
+    } finally {
+      setIsSubmitting(false);
+      setSubmittedData(data);
+      form.reset();
+    }
   };
 
   const renderCardIcon = (id: "phone" | "email" | "office") => {
@@ -482,14 +492,15 @@ const Contact = () => {
                   {/* Submit Button */}
                   <button
                     type="submit"
+                    disabled={isSubmitting}
                     style={{
                       background:
                         "linear-gradient(90deg, #F31668 0%, #FB6222 52%, #FDC212 100%)",
                     }}
-                    className="w-full h-[52px] sm:h-[54px] rounded-[15px] font-display font-bold text-white text-[16px] sm:text-[17px] flex items-center justify-center gap-2.5 shadow-[0_10px_24px_-6px_rgba(243,22,104,0.38)] hover:opacity-95 hover:-translate-y-0.5 transition-all duration-200 cursor-pointer"
+                    className="w-full h-[52px] sm:h-[54px] rounded-[15px] font-display font-bold text-white text-[16px] sm:text-[17px] flex items-center justify-center gap-2.5 shadow-[0_10px_24px_-6px_rgba(243,22,104,0.38)] hover:opacity-95 hover:-translate-y-0.5 transition-all duration-200 cursor-pointer disabled:opacity-70 disabled:cursor-not-allowed"
                   >
                     <PaperPlaneIcon className="w-5 h-5 text-white shrink-0" />
-                    <span>Send Message</span>
+                    <span>{isSubmitting ? "Sending..." : "Send Message"}</span>
                   </button>
                 </form>
               </Form>

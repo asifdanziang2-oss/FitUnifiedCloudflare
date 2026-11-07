@@ -2,6 +2,7 @@ import { useState } from "react";
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { Check } from "lucide-react";
+import { submitLeadCapture } from "@/lib/sanity";
 import {
   AlertDialog,
   AlertDialogContent,
@@ -18,6 +19,7 @@ const PLAY_STORE_URL =
 const HeroSection = () => {
   const [phone, setPhone] = useState("");
   const [showConfirm, setShowConfirm] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const isAndroid =
     typeof navigator !== "undefined" && /Android/i.test(navigator.userAgent);
 
@@ -28,9 +30,17 @@ const HeroSection = () => {
     }
   };
 
-  const handleSubmit = () => {
-    if (/^\d{10}$/.test(phone)) {
-      setShowConfirm(true);
+  const handleSubmit = async () => {
+    if (/^\d{10}$/.test(phone) && !isSubmitting) {
+      setIsSubmitting(true);
+      try {
+        await submitLeadCapture({ phone, source: "Homepage Hero" });
+      } catch (err) {
+        console.error("Failed to submit lead to Sanity:", err);
+      } finally {
+        setIsSubmitting(false);
+        setShowConfirm(true);
+      }
     }
   };
 
@@ -158,9 +168,9 @@ const HeroSection = () => {
                     variant="gradient"
                     className="h-11 rounded-full px-7 shrink-0 text-sm font-semibold shadow-brand hover:shadow-lg transition-transform hover:-translate-y-0.5 active:translate-y-0"
                     onClick={handleSubmit}
-                    disabled={!/^\d{10}$/.test(phone)}
+                    disabled={!/^\d{10}$/.test(phone) || isSubmitting}
                   >
-                    Get Started
+                    {isSubmitting ? "Saving..." : "Get Started"}
                   </Button>
                 </div>
               </div>
@@ -303,9 +313,9 @@ const HeroSection = () => {
                     variant="gradient"
                     className="h-9 rounded-full px-5 shrink-0 text-xs font-semibold shadow-brand"
                     onClick={handleSubmit}
-                    disabled={!/^\d{10}$/.test(phone)}
+                    disabled={!/^\d{10}$/.test(phone) || isSubmitting}
                   >
-                    Get Started
+                    {isSubmitting ? "Saving..." : "Get Started"}
                   </Button>
                 </div>
               </div>
@@ -489,9 +499,9 @@ const HeroSection = () => {
                 variant="gradient"
                 className="h-10 rounded-full px-4 text-xs font-semibold shadow-brand shrink-0"
                 onClick={handleSubmit}
-                disabled={!/^\d{10}$/.test(phone)}
+                disabled={!/^\d{10}$/.test(phone) || isSubmitting}
               >
-                Get Started
+                {isSubmitting ? "Saving..." : "Get Started"}
               </Button>
             </div>
           </motion.div>

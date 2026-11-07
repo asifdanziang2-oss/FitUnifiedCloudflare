@@ -1,15 +1,14 @@
-import { describe, it } from "node:test";
-import assert from "node:assert/strict";
+import { describe, it, expect } from "vitest";
 import {
   FITKHATA_FEATURES_META,
   FITVYAPAAR_FEATURES_META,
   FITNAUKRI_FEATURES_META,
   getProductFeatureLabels,
-} from "../lib/productFeatures.ts";
+} from "../lib/productFeatures";
 
 describe("productFeatures metadata", () => {
   it("defines all 5 FitKhata features in the expected order", () => {
-    assert.deepEqual(getProductFeatureLabels(FITKHATA_FEATURES_META), [
+    expect(getProductFeatureLabels(FITKHATA_FEATURES_META)).toEqual([
       "Biometric Attendance",
       "Daily Check-in Reports",
       "Member Management",
@@ -19,7 +18,7 @@ describe("productFeatures metadata", () => {
   });
 
   it("defines all 4 FitVyapaar features in the expected order", () => {
-    assert.deepEqual(getProductFeatureLabels(FITVYAPAAR_FEATURES_META), [
+    expect(getProductFeatureLabels(FITVYAPAAR_FEATURES_META)).toEqual([
       "B2B Marketplace",
       "Equipment Procurement",
       "Repair & Maintenance",
@@ -28,7 +27,7 @@ describe("productFeatures metadata", () => {
   });
 
   it("defines all 5 FitNaukri Hiring Platform features in the expected order with distinct circle colors", () => {
-    assert.deepEqual(getProductFeatureLabels(FITNAUKRI_FEATURES_META), [
+    expect(getProductFeatureLabels(FITNAUKRI_FEATURES_META)).toEqual([
       "Fitness Job Board",
       "Verified Profiles",
       "Trainer Discovery",
@@ -36,8 +35,8 @@ describe("productFeatures metadata", () => {
       "Wellness Careers",
     ]);
     for (const item of FITNAUKRI_FEATURES_META) {
-      assert.ok(item.circleBg.startsWith("bg-["), `Expected custom circleBg on ${item.id}`);
-      assert.ok(item.iconColor.startsWith("text-["), `Expected custom iconColor on ${item.id}`);
+      expect(item.circleBg.startsWith("bg-[")).toBe(true);
+      expect(item.iconColor.startsWith("text-[")).toBe(true);
     }
   });
 });

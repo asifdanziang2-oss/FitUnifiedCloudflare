@@ -1,22 +1,20 @@
-import { describe, it } from "node:test";
-import assert from "node:assert/strict";
+import { describe, it, expect } from "vitest";
 import {
   contactSchema,
   CONTACT_INFO_ITEMS,
   buildWhatsAppContactUrl,
-} from "../lib/contactData.ts";
+} from "../lib/contactData";
 
 describe("contactData validation & metadata", () => {
   it("exposes Phone, Email, and Office contact items matching the reference design", () => {
-    assert.equal(CONTACT_INFO_ITEMS.length, 3);
-    assert.deepEqual(
-      CONTACT_INFO_ITEMS.map((item) => ({ label: item.label, value: item.value })),
-      [
-        { label: "Phone", value: "+91-8796260440" },
-        { label: "Email", value: "connect@fitunified.com" },
-        { label: "Office", value: "Bengaluru, Karnataka, India" },
-      ]
-    );
+    expect(CONTACT_INFO_ITEMS).toHaveLength(3);
+    expect(
+      CONTACT_INFO_ITEMS.map((item) => ({ label: item.label, value: item.value }))
+    ).toEqual([
+      { label: "Phone", value: "+91-8796260440" },
+      { label: "Email", value: "connect@fitunified.com" },
+      { label: "Office", value: "Bengaluru, Karnataka, India" },
+    ]);
   });
 
   it("validates a complete, valid contact form submission", () => {
@@ -27,7 +25,7 @@ describe("contactData validation & metadata", () => {
       city: "Bengaluru",
       message: "We would like a live demo of FitKhata.",
     });
-    assert.equal(result.success, true);
+    expect(result.success).toBe(true);
   });
 
   it("rejects empty fields and invalid phone numbers", () => {
@@ -38,7 +36,7 @@ describe("contactData validation & metadata", () => {
       city: "",
       message: "",
     });
-    assert.equal(emptyResult.success, false);
+    expect(emptyResult.success).toBe(false);
   });
 
   it("builds a properly encoded WhatsApp contact URL", () => {
@@ -49,7 +47,7 @@ describe("contactData validation & metadata", () => {
       city: "Bengaluru",
       message: "Need pricing info",
     });
-    assert.ok(url.startsWith("https://wa.me/918796260440?text="));
-    assert.ok(url.includes(encodeURIComponent("Iron Pulse Fitness")));
+    expect(url.startsWith("https://wa.me/918796260440?text=")).toBe(true);
+    expect(url.includes(encodeURIComponent("Iron Pulse Fitness"))).toBe(true);
   });
 });
